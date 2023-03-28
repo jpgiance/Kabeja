@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="lib1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/blocks/svg/lib/xml-apis.jar!/" />
+      <root url="jar://$PROJECT_DIR$/blocks/svg/lib/miethxml-toolkit.jar!/" />
+      <root url="jar://$PROJECT_DIR$/blocks/svg/lib/xml-apis-ext.jar!/" />
+      <root url="jar://$PROJECT_DIR$/blocks/svg/lib/js.jar!/" />
+      <root url="jar://$PROJECT_DIR$/blocks/svg/lib/pdf-transcoder.jar!/" />
+      <root url="jar://$PROJECT_DIR$/blocks/svg/lib/batik-all.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
