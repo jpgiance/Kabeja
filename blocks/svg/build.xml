@@ -35,12 +35,12 @@
 		<tstamp />
 		<mkdir dir="${build}" />
 		<mkdir dir="${build}/${classes}" />
-		<mkdir dir="${build}/${classes}/${icons}" />
-		<copy todir="${build}/${classes}/${icons}">
-			<fileset dir="${icons}">
-				<include name="**/*" />
-			</fileset>
-		</copy>
+<!--		<mkdir dir="${build}/${classes}/${icons}" />-->
+<!--		<copy todir="${build}/${classes}/${icons}">-->
+<!--			<fileset dir="${icons}">-->
+<!--				<include name="**/*" />-->
+<!--			</fileset>-->
+<!--		</copy>-->
 		<mkdir dir="${dist}" />
 		<mkdir dir="${dist}/${help}" />
 		<mkdir dir="${dist}/${lang}" />
