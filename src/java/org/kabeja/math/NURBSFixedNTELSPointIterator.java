@@ -39,11 +39,11 @@ public class NURBSFixedNTELSPointIterator implements Iterator {
         this.nurbs = nurbs;
         this.ntels = ntels;
 
-        if (this.nurbs.getKnots().length == (this.nurbs.getDegree() +
-                this.nurbs.controlPoints.length + 1)) {
-            this.lastInterval = this.nurbs.getKnots().length -
-                this.nurbs.getDegree() - 1;
+        if (this.nurbs.getKnots().length == (this.nurbs.getDegree() + this.nurbs.controlPoints.length + 1)) {
+
+            this.lastInterval = this.nurbs.getKnots().length - this.nurbs.getDegree() - 1;
             this.interval = this.nurbs.getDegree();
+
         } else if (this.nurbs.getKnots().length > 0) {
             // find self the start and end interval
             this.interval = 0;
@@ -86,12 +86,26 @@ public class NURBSFixedNTELSPointIterator implements Iterator {
     }
 
     public Object next() {
+        // Check if we are in the last interval and if t+dt would exceed the final knot value.
+        if (this.interval == this.lastInterval && this.t + this.dt > this.nurbs.getKnots()[this.lastInterval]) {
+            // We are in the last interval and t+dt would exceed the final knot value.
+            // So we set t to be the final knot value to ensure the final point is evaluated.
+            this.t = this.nurbs.getKnots()[this.lastInterval];
+        }
+
         Point p = this.nurbs.getPointAt(this.interval - 1, t);
-        //		System.out.println("t="+t);
-        //		Point p = this.nurbs.getPointAt(t);
-        this.t += this.dt;
+        // If we are not in the last interval or if we are but haven't yet reached the final knot value, then increment t by dt.
+        if (this.interval < this.lastInterval || this.t < this.nurbs.getKnots()[this.lastInterval]) {
+            this.t += this.dt;
+        }
 
         return p;
+//        Point p = this.nurbs.getPointAt(this.interval - 1, t);
+//        //		System.out.println("t="+t);
+//        //		Point p = this.nurbs.getPointAt(t);
+//        this.t += this.dt;
+//
+//        return p;
     }
 
     public void remove() {
@@ -101,8 +115,7 @@ public class NURBSFixedNTELSPointIterator implements Iterator {
     protected void nextInterval() {
         this.interval++;
 
-        while ((this.t > this.nurbs.getKnots()[this.interval]) &&
-                (this.interval < this.lastInterval)) {
+        while ((this.t > this.nurbs.getKnots()[this.interval]) && (this.interval < this.lastInterval)) {
             this.interval++;
         }
 
