@@ -247,6 +247,19 @@ public class DXFSpline extends DXFEntity {
         return this.polyline.getLength();
     }
 
+    /**
+     *
+     * @return The number of intervals with length greater than 0.
+     *          Total Intervasl count is calculated in the NURBSFixedNTELSPointIterator constructor
+     */
+    public int getIntervalCount(){
+        if (this.polyline == null) {
+            this.polyline = toDXFPolyline();
+        }
+        // 30 is the default ntels
+        return (int) Math.floor(this.polyline.getVertexCount()/30);
+    }
+
     protected DXFPolyline toDXFPolyline() {
         return DXFSplineConverter.toDXFPolyline(this);
     }
